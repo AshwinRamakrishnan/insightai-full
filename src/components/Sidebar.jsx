@@ -16,17 +16,21 @@ const Sidebar = ({ onClose, isMobile }) => {
   const navigate = useNavigate();
 
   const navItems = [
-    { label: 'Upload CSV', icon: <UploadCloud size={20} />, href: '#upload' },
-    { label: 'Insight Summary', icon: <FileText size={20} />, href: '#summary' },
-    { label: 'Auto Insights', icon: <Brain size={20} />, href: '#auto-insights' },
-    { label: 'Charts', icon: <BarChart3 size={20} />, href: '#charts' },
-    { label: 'Search Data', icon: <Search size={20} />, href: '#search' },
+    { label: 'Upload CSV', icon: <UploadCloud size={20} />, href: '/#upload' },
+    { label: 'Insight Summary', icon: <FileText size={20} />, href: '/#summary' },
+    { label: 'Auto Insights', icon: <Brain size={20} />, href: '/#auto-insights' },
+    { label: 'Charts', icon: <BarChart3 size={20} />, href: '/#charts' },
+    { label: 'Search Data', icon: <Search size={20} />, href: '/#search' },
     { label: 'ML Inference', icon: <BrainCircuit size={20} />, href: '/ml-inference' },
   ];
 
   const handleNav = (href) => {
-    if (href.startsWith('#')) {
-      window.location.hash = href;
+    if (href.startsWith('/#')) {
+      // Navigate to root page first, then set hash
+      navigate('/', { replace: true });
+      setTimeout(() => {
+        window.location.hash = href.replace('/', '');
+      }, 50);
     } else {
       navigate(href);
     }
