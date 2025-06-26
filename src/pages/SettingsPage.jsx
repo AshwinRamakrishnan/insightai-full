@@ -17,106 +17,136 @@ const SettingsPage = ({ isDarkMode, toggleDarkMode }) => {
   ];
 
   return (
-    <div className="flex h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+    <div className="flex flex-col md:flex-row h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
       
-      {/* Sidebar */}
-      <div className="hidden md:block">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:block md:w-64">
         <Sidebar />
-      </div>
-      {/* Mobile Sidebar (toggleable) */}
+      </aside>
+
+      {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
-        <div className="fixed inset-0 z-30 md:hidden">
-          <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setSidebarOpen(false)} />
-          <Sidebar onClose={() => setSidebarOpen(false)} isMobile />
+        <div className="fixed inset-0 z-50 flex md:hidden">
+          <div
+            className="absolute inset-0 bg-black bg-opacity-50 z-40"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Close sidebar"
+          />
+          <div className="relative z-50 w-64">
+            <Sidebar onClose={() => setSidebarOpen(false)} isMobile />
+          </div>
         </div>
       )}
 
       {/* Main Content */}
-      <div className="flex flex-col flex-1 overflow-y-auto">
-        {/* Topbar */}
+      <main className="flex flex-col flex-1 overflow-y-auto">
         <Topbar sidebarOpen={sidebarOpen} toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
-        <div className="p-4 sm:p-6 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-900 shadow-2xl rounded-3xl p-6 sm:p-10 transition-all duration-300">
+        <section className="p-4 sm:p-6 max-w-5xl w-full mx-auto">
+          <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-6 sm:p-10 transition-all duration-300">
 
-            {/* 👤 Profile */}
-            <div className="flex flex-col items-center">
+            {/* 👤 User Info */}
+            <div className="flex flex-col items-center text-center">
               <img
                 src={user?.photoURL || 'https://i.pravatar.cc/120'}
-                alt="User"
-                className="w-28 h-28 sm:w-32 sm:h-32 rounded-full mb-4 border-4 border-indigo-500 shadow-md"
+                alt="User Avatar"
+                className="w-28 h-28 sm:w-32 sm:h-32 rounded-full mb-4 border-4 border-indigo-500 shadow-lg"
               />
-              <h2 className="text-xl sm:text-2xl font-bold text-indigo-800 dark:text-indigo-300">
+              <h2 className="text-2xl font-bold text-indigo-800 dark:text-indigo-300">
                 {user?.displayName || 'Your Name'}
               </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 {user?.email || 'your-email@example.com'}
               </p>
             </div>
 
-            {/* 🌙 Dark Mode */}
-            <div className="mt-6 bg-gray-200 dark:bg-gray-700 px-4 py-3 rounded-xl flex justify-between items-center max-w-sm mx-auto shadow">
-              <span className="font-medium text-sm text-gray-800 dark:text-gray-200">🌙 Dark Mode</span>
+            {/* 🌙 Dark Mode Toggle */}
+            <div className="mt-6 max-w-xs mx-auto flex items-center justify-between bg-gray-200 dark:bg-gray-700 p-3 rounded-xl shadow-md">
+              <span className="text-sm font-medium text-gray-800 dark:text-gray-200">🌙 Enable Dark Mode</span>
               <label className="inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   className="sr-only"
                   checked={isDarkMode}
                   onChange={toggleDarkMode}
+                  aria-label="Toggle Dark Mode"
                 />
-                <div className="w-11 h-6 bg-gray-300 dark:bg-gray-600 rounded-full relative transition">
-                  <div className={`absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition transform ${isDarkMode ? 'translate-x-5' : ''}`} />
+                <div className="w-11 h-6 bg-gray-300 dark:bg-gray-600 rounded-full relative">
+                  <div
+                    className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300 ${
+                      isDarkMode ? 'translate-x-5' : ''
+                    }`}
+                  />
                 </div>
               </label>
             </div>
 
             {/* 🚀 About Section */}
-            <div className="mt-8 bg-indigo-50 dark:bg-indigo-900 text-indigo-900 dark:text-indigo-200 p-5 rounded-xl text-left shadow-inner">
-              <h3 className="text-lg font-semibold mb-2">🚀 About TN_FUTECX</h3>
+            <div className="mt-8 p-5 bg-indigo-50 dark:bg-indigo-900 text-indigo-900 dark:text-indigo-200 rounded-xl shadow-inner">
+              <h3 className="text-lg font-semibold mb-2">About TN_FUTECX</h3>
               <p className="text-sm leading-relaxed">
-                <strong>TN_FUTECX</strong> is a mini tech startup founded by <strong>Ashwin Ramakrishnan</strong>, focused on crafting innovative AI/ML solutions. We believe in empowering young minds to build technologies that change lives.
+                <strong>TN_FUTECX</strong> is a mini tech startup founded by <strong>Ashwin Ramakrishnan</strong>, focusing on building AI/ML-powered tools and platforms to empower youth and create social impact through innovation.
               </p>
               <p className="mt-2 text-xs italic text-gray-600 dark:text-gray-400">
-                Want to collaborate or learn more? Connect below.
+                Want to collaborate or learn more? Reach out using the links below.
               </p>
             </div>
 
-            {/* 🎞️ Slider */}
-            <div className="mt-10 w-full overflow-x-auto scrollbar-hide">
-              <div className="flex gap-4 animate-slide px-2 w-[max-content]">
+            {/* 🎞️ Slider Showcase */}
+            <div className="mt-10 overflow-x-auto scrollbar-hide">
+              <div className="flex gap-4 px-2 w-[max-content]">
                 {sliderItems.map((item) => (
                   <motion.div
                     key={item.id}
                     className="min-w-[250px] sm:min-w-[300px] p-4 rounded-xl shadow-md"
                     style={{ backgroundColor: item.bg }}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4 }}
                   >
-                    <h4 className="font-bold text-indigo-700">{item.title}</h4>
-                    <p className="text-sm mt-2 text-gray-700">{item.desc}</p>
+                    <h4 className="font-semibold text-indigo-700">{item.title}</h4>
+                    <p className="text-sm text-gray-800 mt-1 dark:text-gray-100">{item.desc}</p>
                   </motion.div>
                 ))}
               </div>
             </div>
 
-            {/* 📞 Contact */}
-            <div className="text-left mt-10">
-              <h3 className="font-semibold text-lg mb-4 text-indigo-700 dark:text-indigo-300">📞 Contact & Help</h3>
+            {/* 📞 Contact Grid */}
+            <div className="mt-10 text-left">
+              <h3 className="text-lg font-semibold mb-4 text-indigo-700 dark:text-indigo-300">Contact & Help</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <a href="mailto:tnfutecx@gmail.com" className="flex items-center gap-3 bg-gray-100 dark:bg-gray-700 p-3 rounded-lg hover:shadow-lg transition">
-                  <img src="https://img.icons8.com/ios-filled/50/000000/new-post.png" alt="Mail" className="w-6 h-6" />
+                <a
+                  href="mailto:tnfutecx@gmail.com"
+                  className="flex items-center gap-3 p-3 rounded-lg bg-gray-100 dark:bg-gray-700 hover:shadow-lg transition"
+                  aria-label="Send Email"
+                >
+                  <img src="https://img.icons8.com/ios-filled/50/000000/new-post.png" alt="Email" className="w-6 h-6" />
                   <span className="text-sm dark:text-white">tnfutecx@gmail.com</span>
                 </a>
-                <a href="https://www.instagram.com/tn_futecx" target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-pink-100 dark:bg-pink-900 p-3 rounded-lg hover:shadow-lg transition">
+                <a
+                  href="https://www.instagram.com/tn_futecx"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3 p-3 rounded-lg bg-pink-100 dark:bg-pink-900 hover:shadow-lg transition"
+                >
                   <img src="https://img.icons8.com/ios-filled/50/000000/instagram-new.png" alt="Instagram" className="w-6 h-6" />
                   <span className="text-sm dark:text-white">@tn_futecx</span>
                 </a>
-                <a href="https://www.linkedin.com/in/ashwin-ramakrishnan-b328a6298" target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-blue-100 dark:bg-blue-900 p-3 rounded-lg hover:shadow-lg transition">
+                <a
+                  href="https://www.linkedin.com/in/ashwin-ramakrishnan-b328a6298"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3 p-3 rounded-lg bg-blue-100 dark:bg-blue-900 hover:shadow-lg transition"
+                >
                   <img src="https://img.icons8.com/ios-filled/50/000000/linkedin.png" alt="LinkedIn" className="w-6 h-6" />
                   <span className="text-sm dark:text-white">Ashwin Ramakrishnan</span>
                 </a>
-                <a href="https://tn-futecx.web.app" target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-green-100 dark:bg-green-900 p-3 rounded-lg hover:shadow-lg transition">
+                <a
+                  href="https://tn-futecx.web.app"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3 p-3 rounded-lg bg-green-100 dark:bg-green-900 hover:shadow-lg transition"
+                >
                   <img src="https://img.icons8.com/ios-filled/50/000000/domain.png" alt="Website" className="w-6 h-6" />
                   <span className="text-sm dark:text-white">tn-futecx.web.app</span>
                 </a>
@@ -130,10 +160,9 @@ const SettingsPage = ({ isDarkMode, toggleDarkMode }) => {
             >
               ⬅ Back to Dashboard
             </button>
-
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
     </div>
   );
 };
