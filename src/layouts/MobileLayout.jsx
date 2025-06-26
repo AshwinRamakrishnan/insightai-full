@@ -37,30 +37,24 @@ const MobileLayout = ({ isDarkMode, toggleDarkMode }) => {
 
       {/* ✅ Main Content Area */}
       <main className="p-4 pt-20 space-y-6">
-        <section id="upload">
-          <UploadCSV />
-        </section>
-
-        <section id="insight-summary">
-          <InsightSummary />
-        </section>
-
-        <section id="auto-insights">
-          <AutoInsights />
-        </section>
-
-        <section id="smart-chart">
-          <SmartChart />
-        </section>
-
-        <section id="smart-search">
-          <SmartSearch />
-        </section>
-
-        {/* ✅ InsightBot Added Here */}
-        <section id="insight-bot">
-          <InsightBot />
-        </section>
+       <section id="upload">
+                  <UploadCSV />
+                </section>
+                <section id="summary">
+                  <InsightSummary />
+                </section>
+                <section id="auto-insights">
+                  <AutoInsights />
+                </section>
+                <section id="charts">
+                  <SmartChart />
+                </section>
+                <section id="search">
+                  <SmartSearch />
+                </section>
+                <section id="assistant">
+                  <InsightBot />
+                </section>
       </main>
     </div>
   );
