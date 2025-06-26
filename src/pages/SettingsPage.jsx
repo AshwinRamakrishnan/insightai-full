@@ -10,11 +10,36 @@ const SettingsPage = ({ isDarkMode, toggleDarkMode }) => {
   const user = auth.currentUser;
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const sliderItems = [
-    { id: 1, title: '🚀 Innovating with AI', desc: 'Smarter, faster, scalable apps.', bg: '#e0f2fe' },
-    { id: 2, title: '🌱 Empowering Youth', desc: 'Helping developers shape the future.', bg: '#fef3c7' },
-    { id: 3, title: '🌍 Tech for Change', desc: 'Innovation that impacts society.', bg: '#f3e8ff' },
-  ];
+ const sliderItems = [
+  {
+    id: 1,
+    title: '🚀 Innovating with AI',
+    desc: 'Building smarter, faster, and scalable applications using the power of Artificial Intelligence.',
+    lightBg: '#dbeafe',       // Light mode background
+    darkBg: '#1e293b',        // Dark mode background (dark slate)
+    lightText: '#1e293b',     // Light mode text (dark)
+    darkText: '#f1f5f9',      // Dark mode text (light gray)
+  },
+  {
+    id: 2,
+    title: '🌱 Empowering Youth',
+    desc: 'Equipping the next generation of developers with tools and guidance to innovate boldly.',
+    lightBg: '#fef9c3',
+    darkBg: '#374151',        // Dark gray
+    lightText: '#1e293b',
+    darkText: '#f1f5f9',
+  },
+  {
+    id: 3,
+    title: '🌍 Tech for Change',
+    desc: 'Driving meaningful societal impact through innovative technology solutions.',
+    lightBg: '#ede9fe',
+    darkBg: '#312e81',        // Indigo dark
+    lightText: '#1e293b',
+    darkText: '#f1f5f9',
+  },
+];
+
 
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
@@ -121,7 +146,7 @@ const SettingsPage = ({ isDarkMode, toggleDarkMode }) => {
                   aria-label="Send Email"
                 >
                   <img src="https://img.icons8.com/ios-filled/50/000000/new-post.png" alt="Email" className="w-6 h-6" />
-                  <span className="text-sm dark:text-white">tnfutecx@gmail.com</span>
+                  <span className="text-sm dark:text-white">Email</span>
                 </a>
                 <a
                   href="https://www.instagram.com/tn_futecx"
@@ -130,7 +155,7 @@ const SettingsPage = ({ isDarkMode, toggleDarkMode }) => {
                   className="flex items-center gap-3 p-3 rounded-lg bg-pink-100 dark:bg-pink-900 hover:shadow-lg transition"
                 >
                   <img src="https://img.icons8.com/ios-filled/50/000000/instagram-new.png" alt="Instagram" className="w-6 h-6" />
-                  <span className="text-sm dark:text-white">@tn_futecx</span>
+                  <span className="text-sm dark:text-white">Instagram</span>
                 </a>
                 <a
                   href="https://www.linkedin.com/in/ashwin-ramakrishnan-b328a6298"
@@ -139,7 +164,7 @@ const SettingsPage = ({ isDarkMode, toggleDarkMode }) => {
                   className="flex items-center gap-3 p-3 rounded-lg bg-blue-100 dark:bg-blue-900 hover:shadow-lg transition"
                 >
                   <img src="https://img.icons8.com/ios-filled/50/000000/linkedin.png" alt="LinkedIn" className="w-6 h-6" />
-                  <span className="text-sm dark:text-white">Ashwin Ramakrishnan</span>
+                  <span className="text-sm dark:text-white">LinkedIn</span>
                 </a>
                 <a
                   href="https://tn-futecx.web.app"
@@ -148,7 +173,7 @@ const SettingsPage = ({ isDarkMode, toggleDarkMode }) => {
                   className="flex items-center gap-3 p-3 rounded-lg bg-green-100 dark:bg-green-900 hover:shadow-lg transition"
                 >
                   <img src="https://img.icons8.com/ios-filled/50/000000/domain.png" alt="Website" className="w-6 h-6" />
-                  <span className="text-sm dark:text-white">tn-futecx.web.app</span>
+                  <span className="text-sm dark:text-white">TN-Futecx</span>
                 </a>
               </div>
             </div>
