@@ -4,7 +4,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useDataContext } from '../context/DataContext';
 import { X, SendHorizonal, Bot } from 'lucide-react';
 
-const genAI = new GoogleGenerativeAI("AIzaSyDFF0qlHYRFm0U9wKX5iLfuuMKfnvTw1Qs"); // 🔐 Replace with your working Gemini API Key
+const genAI = new GoogleGenerativeAI(); // 🔐 Replace with your working Gemini API Key
 
 const InsightBot = () => {
   const { csvData } = useDataContext();
